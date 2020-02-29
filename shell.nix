@@ -6,5 +6,6 @@ pkgs.mkShell {
     pkgs.python3
     pkgs.pipenv
     pkgs.python37Packages.discordpy
+    pkgs.python37Packages.pyyaml
   ];
 }
