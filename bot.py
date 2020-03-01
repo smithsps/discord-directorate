@@ -1,8 +1,21 @@
-import yaml
 import discord
 from discord.ext import commands
+import logging
+import structlog
+import sys
+import yaml
 
 config = yaml.safe_load(open('./settings.yaml'))
+
+logging.basicConfig(
+    format="%(message)s", stream=sys.stdout, level=logging.INFO
+)
+
+structlog.configure(
+    logger_factory=structlog.stdlib.LoggerFactory(),
+)
+
+log = structlog.get_logger()
 
 def get_prefix(bot, message):
     return commands.when_mentioned_or('!')(bot, message)
@@ -20,9 +33,9 @@ if __name__ == '__main__':
 
 @bot.event
 async def on_ready():
-    print(f'\nLogged in as: {bot.user.name} - {bot.user.id}\nVersion: {config["version"]}')
+    log.info(f'\nLogged in as: {bot.user.name} - {bot.user.id} - V.{config["version"]}')
 
     await bot.change_presence(activity=discord.Game(name='GULAG SIM 2000'))
-    print(f'\nLogged in and running..!')
+    log.info(f'\nLogged in and running..!')
 
 bot.run(config['discord-token'], bot=True, reconnect=True)

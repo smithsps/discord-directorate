@@ -1,6 +1,6 @@
 from discord.ext import commands
+import structlog
 import random
-import asyncio
 
 
 class BensFault(commands.Cog):
@@ -22,13 +22,16 @@ class BensFault(commands.Cog):
     @commands.command(name='faultben', hidden=True)
     @commands.guild_only()
     async def fault_ben(self, ctx):
-        await self.set_total(ctx, self.get_total(ctx) + 1)
+        new_total = self.get_total(ctx) + 1
+        log.debug('incrementing ben\'s fault to {new_total}')
+        await self.set_total(ctx, new_total)
         await ctx.message.add_reaction(random.choice(self.reaction_emoji))
 
     @commands.command(name='setbenfaults', hidden=True)
     @commands.is_owner()
     async def set_faults(self, ctx, total):
         await self.set_total(ctx, total)
+        log.debug('setting ben\'s fault to {new_total}')
         await ctx.message.add_reaction('\N{white heavy check mark}')
 
     async def set_total(self, ctx, total):
@@ -42,5 +45,7 @@ class BensFault(commands.Cog):
     def get_channel(self, ctx):
         return ctx.bot.get_channel(self.total_channel_id)
 
+
+log = structlog.get_logger()
 def setup(bot):
     bot.add_cog(BensFault(bot))
