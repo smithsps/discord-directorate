@@ -38,6 +38,7 @@ class ColorRoles(commands.Cog):
 
         role = SimpleNamespace(id=color_role[0])
         await ctx.author.add_roles(role)
+        await ctx.message.add_reaction('\N{white heavy check mark}')
 
     @rolecolor.error
     async def rolecolor_error(self, ctx, error):
