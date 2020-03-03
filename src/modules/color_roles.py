@@ -11,7 +11,7 @@ class ColorRoles(commands.Cog):
         (684179834477477929, 'pink'),
         (684179974718095381, 'gold'),
         (684179976731361281, 'orange'),
-        (684179977603907712, 'reach'),
+        (684179977603907712, 'peach'),
         (684180639645565010, 'red'),
         (0, 'none'),
     ]
@@ -23,7 +23,7 @@ class ColorRoles(commands.Cog):
     async def rolecolor(self, ctx, color):
         color_role = next((cr for cr in self.possible_roles if cr[1] == color.lower()), None)
         if color_role is None:
-            await ctx.send(f'Available Colors are: {self.listed_colors()}')
+            await ctx.send(f'Available colors are: {self.listed_colors()}')
             return
 
         # Remove current color roles
@@ -43,7 +43,7 @@ class ColorRoles(commands.Cog):
     @rolecolor.error
     async def rolecolor_error(self, ctx, error):
         if isinstance(error, commands.BadArgument) or isinstance(error, commands.MissingRequiredArgument):
-            await ctx.send(f'\!rolecolor <color>\nAvailable Colors are: {self.listed_colors()}')
+            await ctx.send(f'\!rolecolor <color>\nAvailable colors are: {self.listed_colors()}')
         else:
             log.error(error)
 
