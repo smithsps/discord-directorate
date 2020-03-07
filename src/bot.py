@@ -22,6 +22,7 @@ def get_prefix(bot, message):
 
 initial_extensions = [
     'modules.bens_fault',
+    'modules.not_sams_fault',
     'modules.dev_tools',
     'modules.color_roles',
 ]
