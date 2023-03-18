@@ -1,6 +1,6 @@
 defmodule DiscordBotWeb.AuthController do
   use DiscordBotWeb, :controller
-  use Ueberauth.Router
+  plug Ueberauth
 
   def callback(%{assigns: %{ueberauth_failure: _failure}} = conn, _params) do
     # handle authentication failure

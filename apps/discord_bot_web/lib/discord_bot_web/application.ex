@@ -7,6 +7,7 @@ defmodule DiscordBotWeb.Application do
 
   @impl true
   def start(_type, _args) do
+    DiscordBotWeb.Release.migrate()
     children = [
       # Start the Telemetry supervisor
       DiscordBotWeb.Telemetry,

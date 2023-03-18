@@ -7,7 +7,15 @@ defmodule DiscordBot.Umbrella.MixProject do
       version: "0.1.0",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
-      aliases: aliases()
+      aliases: aliases(),
+      releases: [
+        discord_bot_umbrella: [
+          applications: [
+            discord_bot: :permanent,
+            discord_bot_web: :permanent
+          ]
+        ]
+      ]
     ]
   end
 
@@ -27,8 +35,6 @@ defmodule DiscordBot.Umbrella.MixProject do
     [
       # Required to run "mix format" on ~H/.heex files from the umbrella root
       {:phoenix_live_view, ">= 0.0.0"},
-      {:ueberauth, "~> 0.10.5"},
-      {:ueberauth_discord, "~> 0.7.0"}
     ]
   end
 
@@ -44,7 +50,8 @@ defmodule DiscordBot.Umbrella.MixProject do
   defp aliases do
     [
       # run `mix setup` in all child apps
-      setup: ["cmd mix setup"]
+      setup: ["cmd mix setup"],
+      "assets.deploy": ["cmd --app discord_bot_web mix assets.deploy"]
     ]
   end
 end

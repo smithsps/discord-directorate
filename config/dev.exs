@@ -20,6 +20,7 @@ config :discord_bot_web, DiscordBotWeb.Endpoint,
   check_origin: false,
   code_reloader: true,
   debug_errors: true,
+  server: true,
   secret_key_base: "kfs1KMgvgd2CkTI326r/yEvhnJk1LBusVflC5KMhDA1o31SfLQPQ85OF+XG/N948",
   watchers: [
     esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]},

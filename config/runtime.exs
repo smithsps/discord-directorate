@@ -31,11 +31,16 @@ if config_env() == :prod do
       """
 
   config :discord_bot_web, DiscordBotWeb.Endpoint,
+    url: [
+      host: System.get_env("PHX_HOST") || "localhost",
+      port: 80
+      # cache_static_manifest: "priv/static/cache_manifest.json"
+    ],
     http: [
       # Enable IPv6 and bind on all interfaces.
       # Set it to  {0, 0, 0, 0, 0, 0, 0, 1} for local network only access.
       ip: {0, 0, 0, 0, 0, 0, 0, 0},
-      port: String.to_integer(System.get_env("PORT") || "4000")
+      port: String.to_integer(System.get_env("PORT") || "8080")
     ],
     secret_key_base: secret_key_base
 
@@ -44,7 +49,8 @@ if config_env() == :prod do
   # If you are doing OTP releases, you need to instruct Phoenix
   # to start each relevant endpoint:
   #
-  #     config :discord_bot_web, DiscordBotWeb.Endpoint, server: true
+  config :discord_bot_web, DiscordBotWeb.Endpoint, server: true
+
   #
   # Then you can assemble a release by calling `mix release`.
   # See `mix help release` for more information.

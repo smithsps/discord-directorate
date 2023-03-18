@@ -69,7 +69,10 @@ config :phoenix, :json_library, Jason
 # Use Ueberauth for our Discord OAuth
 config :ueberauth, Ueberauth,
   providers: [
-    discord: {Ueberauth.Strategy.Discord, []}
+    discord: {Ueberauth.Strategy.Discord, [
+      cliend_id: System.get_env("DISCORD_CLIENT_ID"),
+      client_secret: System.get_env("DISCORD_CLIENT_SECRET"),
+    ]}
   ]
 
 # Import environment specific config. This must remain at the bottom
